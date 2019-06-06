@@ -1,19 +1,32 @@
-# Apache Spark RDD notes:
-                        
-## Spark with python -- Transform,stage and store.
+---
+layout: default
+title: Apache Spark RDD notes:
+nav_order: 2
+---
 
-### Spark:
+# Apache Spark RDD notes:
+{: .no_toc }
+
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
+
+## Spark:
     -> Spark is in-memory distributed processing framework.
     It has multiple API's Spark-core,dataframe/SQL and Mlib api.
 
-### Core-Spark API:
+## Core-Spark API:
 
    RDD -- resilient distributed dataset :
         Which is a fault-tolerant collection of elements that can be operated on in parallel. There are two ways to create RDDs: parallelizing an existing collection in your driver program, or referencing a dataset in an external storage system, such as a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat.
     sc.parallelize(pythonListObj) -- Convert python list into spark RDD collection.
 
 
-### RDD Actions:
+## RDD Actions:
 
     reduce(func)   -->	Aggregate the elements of the dataset using a function func (which takes two arguments and returns one). The function should be commutative and associative so that it can be computed correctly in parallel.
     collect()  --> Return all the elements of the dataset as an array at the driver program. This is usually useful after a filter or other operation that returns a sufficiently small subset of the data.
@@ -28,14 +41,14 @@
     countByKey()    --> Only available on RDDs of type (K, V). Returns a hashmap of (K, Int) pairs with the count of each key.
     foreach(func)   --> Run a function func on each element of the dataset. This is usually done for side effects such as updating an Accumulator or interacting with external storage systems.
 
-### Standard transformation:
+## Standard transformation:
     -> String Manipulation(Python):
         -- Split and get required fields.
         -- Data type conversion
         -- Discard unnecessary columns
         --
 
-### Transformation:
+## Transformation:
     -- RDD Map:
     Ex: emp_dat = empRDD.map(lambda x: x.split(",")[5] )  -- Spilit date fileds from 5th position.
     emp_tup = empRDD.map(lambda x: (int(x.split("," )[0]),x.split("," )[1],x.split("," )[5],x.split("," )[6],int(x.split("," )[7]),int(x.split("," )[10]))) -- Convert RDD into Tuples (k,v).
@@ -45,7 +58,7 @@
     -- RDD filter:
     Ex:  fil = empRDD.filter(lambda x: x.split(",")[10]=='80')  # It will filter records and give dept_Id=80.
 
-### Joins:
+## Joins:
     -- Read text file using sc.textFile("file.csv") and convert as tuple using below stmts:
     -- empTab = empRDD.map(lambda x: (x.split("," )[10].strip(),int(x.split("," )[0]),x.split("," )[1],x.split("," )[5],x.split("," )[6],int(x.split("," )[7])))
 
@@ -58,7 +71,7 @@
 
     empLeftJoin = empTab.leftOuterJoin(deptTab) # Join two RDD sets
 
-### Total Aggregation:
+## Total Aggregation:
     count – give number of records in RDD
     reduce – used to perform aggregations such as sum, min, max etc on RDDs which contain numeric elements
 
@@ -72,13 +85,13 @@
 
     min =  empFile.reduce(lambda x,y: x if (x.split(",")[7]) < y.split(",")[7] else y) # return X if X is less than Y.
 
-### Aggregation by Key:
+## Aggregation by Key:
     countByKey:
         It is Aggregation and inout must be (k,v). and the result will return as python Dict type. Not spark RDD.
 
     Ex: cnt = empTab.countByKey()
 
-### groupByKey:
+## groupByKey:
     By using groupByKey can do aggregate functions. RDD must be (K,V) pair.
 
     Ex:
@@ -103,7 +116,7 @@
     4. leftOuterJoin
     5.cogroup
 
-### Sample Code:
+## Sample Code:
 line_count = fileData.map(lambda line: line.splitlines())   #Count the no of lines
 words = fileData.flatMap(lambda word: word.split(","))
 
@@ -119,7 +132,7 @@ businessCount = fileData.map(lambda row: row.split(",")) \
 businessCount.saveAsTextFile(os.path.join(
     defaultDir, 'businessCount'))   # Write the coiunt data into os file.
 
-### Sample streaming:
+## Sample streaming:
 
 strm = spark.readStream.schema(strmSchema).format("csv").option(
         "header", "true").load(os.path.join(defaultDir, '*.csv'))
