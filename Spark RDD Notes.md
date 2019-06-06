@@ -1,6 +1,5 @@
 #Spark 
-
-                        # Apache Spark RDD notes:
+                       # Apache Spark RDD notes:
                         *************
 # Spark with python -- Transform,stage and store.
 
