@@ -1,5 +1,11 @@
 # Spark
 
+---
+layout: default
+title: Spark Session builder
+nav_order: 1
+---
+
 """
 Pet project for Home Depot product search from kaggle
 Ref:  https://www.kaggle.com/c/home-depot-product-search-relevance
