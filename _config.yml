@@ -2,11 +2,8 @@
 
 title: Data Analytics docs
 description: Documentations for data Analytics
-baseurl: "/sjeganraj/" # the subpath of your site, e.g. /blog
 url: "https://sjeganraj.github.io/"
 
-permalink: pretty
-exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json",  "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile"]
 
 # Enable or disable the site search
 search_enabled: true
