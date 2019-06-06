@@ -1,7 +1,7 @@
-Doc.
-**bold** Hive
 
-_italic_ Hive Topics:
+** Hive Doc**
+
+_Hive Topics_
         --> Hive architecture
         --> Running Hive
         --> Data types and file formats
@@ -23,7 +23,7 @@ _italic_ Hive Topics:
         --> Hive and AWS
         --> hCatalog
 
-_italic_ Hive Architecture:
+_Hive Architecture_
 ------------------
 UI –	The user interface for users to submit queries and other operations to the system. As of 2011 the system had a command line interface and a web based GUI was being developed.
 
@@ -39,7 +39,7 @@ Execution Engine –	The component which executes the execution plan created by 
       these different stages of the plan and executes these stages on the appropriate system components.
 
 
-_italic_ Hive Data Model:
+_Hive Data Model_
 ---------------
 
 Tables – These are analogous to Tables in Relational Databases. Tables can be filtered, projected, joined and unioned. Additionally all the data of a table is stored in a directory in HDFS. Hive also supports the notion of external tables wherein a table can be created on prexisting files or directories in HDFS by providing the appropriate location to the table creation DDL. The rows in a table are organized into typed columns similar to Relational Databases.
