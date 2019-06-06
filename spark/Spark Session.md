@@ -4,6 +4,7 @@
 Pet project for Home Depot product search from kaggle
 Ref:  https://www.kaggle.com/c/home-depot-product-search-relevance
 """
+```py
 from __future__ import print_function
 
 if __name__ == '__main__':
@@ -28,3 +29,5 @@ if __name__ == '__main__':
 
 print "********* App starts here ******************"
 spark.sparkContext.setLogLevel("INFO")
+spark.stop()
+```
