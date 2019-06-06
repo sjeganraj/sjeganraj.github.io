@@ -1,21 +1,20 @@
-                        # Apache Spark RDD notes:
-                        *************
-# Spark with python -- Transform,stage and store.
+# Apache Spark RDD notes:
+                        
+## Spark with python -- Transform,stage and store.
 
-Spark:
+### Spark:
     -> Spark is in-memory distributed processing framework.
     It has multiple API's Spark-core,dataframe/SQL and Mlib api.
 
-Core-Spark API:
-**************
+### Core-Spark API:
 
    RDD -- resilient distributed dataset :
         Which is a fault-tolerant collection of elements that can be operated on in parallel. There are two ways to create RDDs: parallelizing an existing collection in your driver program, or referencing a dataset in an external storage system, such as a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat.
     sc.parallelize(pythonListObj) -- Convert python list into spark RDD collection.
 
 
-    RDD Actions:
-    ************
+### RDD Actions:
+
     reduce(func)   -->	Aggregate the elements of the dataset using a function func (which takes two arguments and returns one). The function should be commutative and associative so that it can be computed correctly in parallel.
     collect()  --> Return all the elements of the dataset as an array at the driver program. This is usually useful after a filter or other operation that returns a sufficiently small subset of the data.
     count()	   --> Return the number of elements in the dataset.
@@ -29,14 +28,14 @@ Core-Spark API:
     countByKey()    --> Only available on RDDs of type (K, V). Returns a hashmap of (K, Int) pairs with the count of each key.
     foreach(func)   --> Run a function func on each element of the dataset. This is usually done for side effects such as updating an Accumulator or interacting with external storage systems.
 
-2.-> Standard transformation:
+### Standard transformation:
     -> String Manipulation(Python):
         -- Split and get required fields.
         -- Data type conversion
         -- Discard unnecessary columns
         --
 
- 3.-> Transformation:
+### Transformation:
     -- RDD Map:
     Ex: emp_dat = empRDD.map(lambda x: x.split(",")[5] )  -- Spilit date fileds from 5th position.
     emp_tup = empRDD.map(lambda x: (int(x.split("," )[0]),x.split("," )[1],x.split("," )[5],x.split("," )[6],int(x.split("," )[7]),int(x.split("," )[10]))) -- Convert RDD into Tuples (k,v).
@@ -46,7 +45,7 @@ Core-Spark API:
     -- RDD filter:
     Ex:  fil = empRDD.filter(lambda x: x.split(",")[10]=='80')  # It will filter records and give dept_Id=80.
 
-4.-> Joins:
+### Joins:
     -- Read text file using sc.textFile("file.csv") and convert as tuple using below stmts:
     -- empTab = empRDD.map(lambda x: (x.split("," )[10].strip(),int(x.split("," )[0]),x.split("," )[1],x.split("," )[5],x.split("," )[6],int(x.split("," )[7])))
 
@@ -59,7 +58,7 @@ Core-Spark API:
 
     empLeftJoin = empTab.leftOuterJoin(deptTab) # Join two RDD sets
 
-5.-> Total Aggregation:
+### Total Aggregation:
     count – give number of records in RDD
     reduce – used to perform aggregations such as sum, min, max etc on RDDs which contain numeric elements
 
@@ -73,13 +72,13 @@ Core-Spark API:
 
     min =  empFile.reduce(lambda x,y: x if (x.split(",")[7]) < y.split(",")[7] else y) # return X if X is less than Y.
 
-6. -> Aggregation by Key:
+### Aggregation by Key:
     countByKey:
         It is Aggregation and inout must be (k,v). and the result will return as python Dict type. Not spark RDD.
 
     Ex: cnt = empTab.countByKey()
 
-7.->  groupByKey:
+### groupByKey:
     By using groupByKey can do aggregate functions. RDD must be (K,V) pair.
 
     Ex:
@@ -87,7 +86,7 @@ Core-Spark API:
     salGroup = empDetail.groupByKey() # Use groupByKey fun
     perSal = salGroup.map(lambda  x: (x[0], sum (x[1]))) # Do aggregate fun over groupByKey.
 
-Transformations on Pair RDDs:
+## Transformations on Pair RDDs:
     1. reduceByKey(func)
     2. groupByKey()
     3. mapValues(func)
@@ -97,14 +96,14 @@ Transformations on Pair RDDs:
     7. values()
     8. sortByKey()
 
-Transformations on two pair RDDs:
+## Transformations on two pair RDDs:
     1. subtractByKey
     2. join
     3. rightOuterJoin
     4. leftOuterJoin
     5.cogroup
 
-# Sample Code:
+### Sample Code:
 line_count = fileData.map(lambda line: line.splitlines())   #Count the no of lines
 words = fileData.flatMap(lambda word: word.split(","))
 
@@ -120,7 +119,7 @@ businessCount = fileData.map(lambda row: row.split(",")) \
 businessCount.saveAsTextFile(os.path.join(
     defaultDir, 'businessCount'))   # Write the coiunt data into os file.
 
-# Sample streaming:
+### Sample streaming:
 
 strm = spark.readStream.schema(strmSchema).format("csv").option(
         "header", "true").load(os.path.join(defaultDir, '*.csv'))
