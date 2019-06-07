@@ -1,4 +1,4 @@
-**List documents for Spark:**
+**List of documents for Spark:**
 
 Topics |  Priority  | Is available
 ------  ------------  -----------
