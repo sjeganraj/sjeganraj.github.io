@@ -9,4 +9,4 @@ Spark RDD | Medium  | No
 Spark MLib  | Low   |No
 
 ## **Topics**
-Session  https://github.com/sjeganraj/sjeganraj.github.io/blob/master/docs/Spark%20Session.md
+Session  https://github.com/sjeganraj/sjeganraj.github.io/blob/master/docs/
