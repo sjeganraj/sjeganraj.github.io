@@ -8,4 +8,4 @@ url: "https://sjeganraj.github.io/"
 # Enable or disable the site search
 search_enabled: true
 
-theme: jekyll-theme-cayman
+theme: jekyll-theme-slate
